@@ -313,7 +313,9 @@ asmlinkage void __cpuinit secondary_start_kernel(void)
 	 */
 	percpu_timer_setup();
 
+#ifndef CONFIG_PLAT_RK
 	calibrate_delay();
+#endif
 
 	smp_store_cpu_info(cpu);
 

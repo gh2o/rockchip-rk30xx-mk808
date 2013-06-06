@@ -17,6 +17,7 @@ obj-$(CONFIG_SPI_BFIN_SPORT)		+= spi_bfin_sport.o
 obj-$(CONFIG_SPI_BITBANG)		+= spi_bitbang.o
 obj-$(CONFIG_SPI_AU1550)		+= au1550_spi.o
 obj-$(CONFIG_SPI_BUTTERFLY)		+= spi_butterfly.o
+obj-$(CONFIG_SPIM_RK29)		    += rk29_spim.o
 obj-$(CONFIG_SPI_COLDFIRE_QSPI)		+= coldfire_qspi.o
 obj-$(CONFIG_SPI_DAVINCI)		+= davinci_spi.o
 obj-$(CONFIG_SPI_DESIGNWARE)		+= dw_spi.o

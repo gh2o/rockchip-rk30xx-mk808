@@ -2072,6 +2072,54 @@ config FB_S3C2410_DEBUG
 	  Turn on debugging messages. Note that you can set/unset at run time
 	  through sysfs
 
+config FB_RK29
+	tristate "RK29 lcd control"
+	depends on FB
+	select FB_CFB_FILLRECT
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	---help---
+	  Framebuffer driver for RK29 Platform,select it if you using rk29
+
+config FB_WORK_IPP
+	bool "fb use ipp to scale UI or rotate video"
+	depends on FB_RK29
+	---help---
+	   this function be used scale-up UI when video, it only support RGB565 UI;
+	   it can use to rotate video .
+
+config FB_SCALING_OSD
+	bool "fb scale OSD support when video playing "
+	depends on FB_WORK_IPP
+	---help---
+	   this function be used scale-up UI when video, it only support RGB565 UI;
+
+config FB_SCALING_OSD_1080P
+	bool "fb scale OSD support when video playing in 1080P "
+	depends on FB_WORK_IPP && FB_SCALING_OSD
+	---help---
+	   this function be used scale-up UI when video, it only support RGB565 UI;
+	   should set SCALE_UI_1080P_VIDEO to 1 in android
+config FB_ROTATE_VIDEO
+	bool "fb video rotate support"
+	depends on FB_WORK_IPP
+	---help---
+		this function  can use to rotate video .
+config FB_MIRROR_X_Y
+	bool "fb video rotate support x y mirror"
+	depends on FB_ROTATE_VIDEO
+	---help---
+		this function  can use to x y mirror video .
+config CLOSE_WIN1_DYNAMIC
+	bool "close win1 dynamically when video"
+	depends on FB_RK29
+	---help---
+		this function  can close win1 when video and it have no data in fb0
+
+config FB_WIMO
+	bool "WiMo support"
+	depends on FB_RK29
+
 config FB_NUC900
         bool "NUC900 LCD framebuffer support"
         depends on FB && ARCH_W90X900
@@ -2388,6 +2436,12 @@ source "drivers/video/omap2/Kconfig"
 
 source "drivers/video/backlight/Kconfig"
 source "drivers/video/display/Kconfig"
+
+if !LCDC_RK30 && !LCDC_RK2928
+source "drivers/video/hdmi/Kconfig"
+endif
+
+source "drivers/video/rockchip/Kconfig"
 
 if VT
 	source "drivers/video/console/Kconfig"
